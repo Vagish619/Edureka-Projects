@@ -5,10 +5,10 @@ FROM devopsedu/webapp
 WORKDIR /var/www/html/
 
 # Copy code files from host to container
-COPY . .
+COPY projCert/. .
 
-# Expose port 80 to host port 9000
-EXPOSE 9000:80
+# removing index.html
+RUN rm /var/www/html/index.html
 
 # Start apachectl
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
