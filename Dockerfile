@@ -7,8 +7,5 @@ WORKDIR /var/www/html/
 # Copy code files from host to container
 COPY projCert/. .
 
-# removing index.html
-RUN rm /var/www/html/*.html
-
 # Start apachectl
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
