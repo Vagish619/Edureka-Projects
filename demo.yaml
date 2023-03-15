@@ -1,6 +1,8 @@
 ---
-- name: Ping host1 machine
-  hosts: host1
+
+- hosts: host1
+  become: yes
+  name: testing ping
   tasks:
-    - name: Ping host1
-      ping:
+    - name: 
+      action: ping
