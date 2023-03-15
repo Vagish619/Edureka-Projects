@@ -8,7 +8,7 @@ WORKDIR /var/www/html/
 COPY projCert/. .
 
 # removing index.html
-RUN rm /var/www/html/index.html
+RUN rm /var/www/html/*.html
 
 # Start apachectl
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
