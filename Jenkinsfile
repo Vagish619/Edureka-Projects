@@ -40,9 +40,9 @@ pipeline {
                     CANARY_REPLICAS = 1
                 }
                 steps {
-                    sh '
+                    sh '''
                        sudo kubectl --kubeconfig=kubeconfig apply -f train-schedule-kube-canary.yml
-                    '
+                    '''
                 }
             }
         stage('DeployToProduction') {
@@ -53,12 +53,12 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                sh '
+                sh '''
                     sudo kubectl --kubeconfig=kubeconfig apply -f train-schedule-kube-canary.yml
-                '
-                sh '
+                '''
+                sh '''
                     sudo kubectl --kubeconfig=kubeconfig apply -f train-schedule-kube.yml
-                '
+                '''
             }
         }
 
