@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch 'master'
+                branch 'project2'
             }
             steps {
                 script {
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch 'master'
+                branch 'project2'
             }
             steps {
                 script {
@@ -41,7 +41,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
-                branch 'master'
+                branch 'project2'
             }
             environment { 
                 CANARY_REPLICAS = 1
@@ -56,7 +56,7 @@ pipeline {
         }
         stage('DeployToProduction') {
             when {
-                branch 'master'
+                branch 'project2'
             }
             environment { 
                 CANARY_REPLICAS = 0
