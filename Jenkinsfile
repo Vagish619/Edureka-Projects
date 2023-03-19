@@ -12,6 +12,7 @@ pipeline {
             steps {
                 echo 'Running build automation'
 				sh "chmod +x gradlew"
+                sh './gradlew build --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
@@ -20,7 +21,10 @@ pipeline {
             
                 steps {
                     
-                    sh "sudo docker build -t ${DOCKER_IMAGE_NAME} ."
+                  sh "sudo docker build -t ${DOCKER_IMAGE_NAME} ."
+                        sh "sudo docker run --name temp_container ${DOCKER_IMAGE_NAME} sh -c 'echo Hello, World!'"
+                        sh "sudo docker commit temp_container ${DOCKER_IMAGE_NAME}"
+                        sh "sudo docker rm temp_container"
                                                
                     
                 }
@@ -30,7 +34,12 @@ pipeline {
                 
                 steps {
                     
+                       
                         sh "sudo docker login -u ${DOCKER_HUB_LOGIN} -p ${DOCKER_HUB_PASSWORD}"
+                        sh "sudo docker tag ${DOCKER_IMAGE_NAME}:latest ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+                        sh "sudo docker tag ${DOCKER_IMAGE_NAME}:latest ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:latest"
+                        sh "sudo docker push ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+                        sh "sudo docker push ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:latest"
                        
                     
                 }
