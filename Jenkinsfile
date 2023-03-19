@@ -19,25 +19,25 @@ pipeline {
             
             steps {
                 steps {
-                    sh """
+                    sh "
                         sudo docker build -t ${DOCKER_IMAGE_NAME} .
                         sudo docker run --name temp_container ${DOCKER_IMAGE_NAME} sh -c 'echo Hello, World!'
                         sudo docker commit temp_container ${DOCKER_IMAGE_NAME}
                         sudo docker rm temp_container
-                    """
+                    "
                 }
             }
          }
          stage('Push Docker Image') {
                 
                 steps {
-                    sh """
+                    sh "
                         sudo docker login -u ${DOCKER_HUB_LOGIN} -p ${DOCKER_HUB_PASSWORD}
                         sudo docker tag ${DOCKER_IMAGE_NAME}:latest ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                         sudo docker tag ${DOCKER_IMAGE_NAME}:latest ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:latest
                         sudo docker push ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                         sudo docker push ${DOCKER_HUB_LOGIN}/${DOCKER_IMAGE_NAME}:latest
-                    """
+                    "
                 }
          }
         stage('CanaryDeploy') {
