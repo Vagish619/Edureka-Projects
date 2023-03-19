@@ -1,8 +1,0 @@
----
-
-- hosts: host1
-  become: yes
-  name: testing ping
-  tasks:
-    - name: 
-      action: ping
