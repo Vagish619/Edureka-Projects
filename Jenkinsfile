@@ -17,7 +17,7 @@ pipeline {
             
             steps {
                 script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
+                    app = "sudo docker build -t vagish999/train-schedule ."
                     app.inside {
                         sh 'echo Hello, World!'
                     }
