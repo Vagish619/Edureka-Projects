@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         
-        DOCKER_IMAGE_NAME = "vagish999/train-schedule"
+        DOCKER_IMAGE_NAME = "train-schedule"
         DOCKER_HUB_LOGIN = "vagish999"
         DOCKER_HUB_PASSWORD = "Kakashi@111"
         BUILD_NUMBER = 1
