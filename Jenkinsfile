@@ -12,13 +12,12 @@ pipeline {
             steps {
                 echo 'Running build automation'
 				sh "chmod +x gradlew"
-                
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
         stage('Build Docker Image') {
             
-            steps {
+            
                 steps {
                     
                     sh "sudo docker build -t ${DOCKER_IMAGE_NAME} ."
@@ -27,7 +26,7 @@ pipeline {
                         sh "sudo docker rm temp_container"
                     
                 }
-            }
+            
          }
          stage('Push Docker Image') {
                 
