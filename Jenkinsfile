@@ -17,17 +17,14 @@ pipeline {
             
             steps {
                 script {
-                    app = "sudo docker build -t vagish999/train-schedule ."
-                    app.inside {
-                        sh 'echo Hello, World!'
-                    }
+                    sh 'sudo docker build -t vagish999/train-schedule .'
+                    sh 'echo Hello, World!'
+                    
                 }
             }
         }
         stage('Push Docker Image') {
-            when {
-                branch 'project2'
-            }
+           
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
@@ -38,9 +35,7 @@ pipeline {
             }
         }
         stage('CanaryDeploy') {
-            when {
-                branch 'project2'
-            }
+            
             environment { 
                 CANARY_REPLICAS = 1
             }
